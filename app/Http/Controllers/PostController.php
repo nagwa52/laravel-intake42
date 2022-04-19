@@ -49,14 +49,15 @@ class PostController extends BaseController
     }
     public function show($postId)
     {
+        $newPost ='';
         $posts =
             $this->sendArray();
         foreach ($posts as $post) {
             if ($postId == $post['id']) {
-                $newpost = $post;
+                $newPost = $post;
             }
         }
-        return view('posts.show', ['post' => $newpost]);
+        return view('posts.show', ['post' => $newPost]);
     }
     public function edit($postId)
     {
