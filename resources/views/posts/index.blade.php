@@ -14,6 +14,9 @@
                     Title
                 </td>
                 <td>
+                    description
+                </td>
+                <td>
                     Post_creator
                 </td>
                 <td>
@@ -29,6 +32,7 @@
                 <tr>
                     <td>{{ $post['id'] }}</td>
                     <td>{{ $post['title'] }}</td>
+                    <td>{{ $post['description'] }}</td>
                     <td>{{ $post['post_creator'] }}</td>
                     <td>{{ $post['created_at'] }}</td>
                     <td>
