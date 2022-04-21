@@ -30,11 +30,12 @@
         </thead>
         <tbody>
             @foreach ($posts as $post)
+
                 <tr>
                     <td>{{ $post['id'] }}</td>
                     <td>{{ $post['title'] }}</td>
                     <td>{{ $post['description'] }}</td>
-                    <td>{{ $post['post_creator'] }}</td>
+                    <td>{{ $post->user ? $post->user->name : 'Not found' }}</td>
                     <td>{{ $post['created_at'] }}</td>
                     <td>
                         <a href={{ route('posts.show', ['post' => $post['id']]) }} class="btn btn-primary">View</a>
