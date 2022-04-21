@@ -3,6 +3,7 @@
     index
 @endsection
 @section('header')
+<a class="btn btn-success" href ={{ route('posts.create') }}>create </a>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>

@@ -7,48 +7,42 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends BaseController
 {
     public function index()
     {
         $posts= Post::all();
+        $filteredPosts =Post::where('title', 'laravel')->get();
+        //another way for select
+
         return
             view('posts.index', ['posts' => $posts]);
     }
     public function create()
     {
-        return
-            view('posts.create');
+        $users = User::all();
+        return view('posts.create', ['users'=>$users]);
     }
     public function store()
     {
-        return 'we are in store';
+        $data = request()->all();
+        // dd($data);
+        Post::create([
+            'title'=> $data['title'],
+            'description'=>$data['description'],
+
+        ]);
+        return redirect()->route('posts.index');
     }
-    private function sendArray()
-    {
-        $posts = [[
-            'id' => 1, 'title' => 'Laravel',
-            'post_creator' => 'nagwa', 'created_at' => '2022-04-16'
-        ], ['id' => 2, 'title' =>
-        'node js', 'post_creator' => 'ahmed', 'created_at' => '2022-04-16'], [
-            'id' => 3,
-            'title' => 'javascript', 'post_creator' => 'mohamed', 'created_at' =>
-            '2022-04-16'
-        ],];
-        return $posts;
-    }
+
     public function show($postId)
     {
-        $newPost ='';
-        $posts =
-            $this->sendArray();
-        foreach ($posts as $post) {
-            if ($postId == $post['id']) {
-                $newPost = $post;
-            }
-        }
-        return view('posts.show', ['post' => $newPost]);
+        $post = Post::where('id', $postId)->first();
+        return view('posts.show', ['post' => $post]);
+        //  another way for select
+        // $post =Post::find($postId);
     }
     public function edit($postId)
     {
