@@ -32,6 +32,7 @@ class PostController extends BaseController
         Post::create([
             'title'=> $data['title'],
             'description'=>$data['description'],
+            'user_id'=>$data['post_creator'],
 
         ]);
         return redirect()->route('posts.index');
