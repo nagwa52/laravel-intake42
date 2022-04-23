@@ -23,7 +23,7 @@
                 <td>
                     Created at
                 </td>
-                <td>
+                <td style="width: 216px;">
                     Actions
                 </td>
             </tr>

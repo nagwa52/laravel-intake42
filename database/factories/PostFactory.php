@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
 {
-
+    protected $Model = Post::class;
     /**
      * Define the model's default state.
      *
@@ -18,12 +18,10 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        Factory::define(Post::class, function (Faker $faker) {
-            return [
-                'title' => $faker->sentence(5),
-                'description' => $faker->text(),
-                'user_id' => $faker->unique()->numberBetween(1, 3),
+        return [
+                'title' => $this->faker->sentence(5),
+                'description' =>$this->faker->sentence(5),
+                'user_id' => rand(1, 3),
             ];
-        });
     }
 }
