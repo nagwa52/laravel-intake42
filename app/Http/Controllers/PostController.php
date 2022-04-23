@@ -17,10 +17,10 @@ class PostController extends BaseController
     {
         $posts= Post::all();
         $filteredPosts =Post::where('title', 'laravel')->get();
-        //another way for select
+        $posts= Post::paginate(5);
 
         return
-            view('posts.index', ['posts' => $posts]);
+            view('posts.index', ['posts' => $posts,'derivedPosts' => $posts]);
     }
     public function create()
     {

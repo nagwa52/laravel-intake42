@@ -30,8 +30,7 @@
         </thead>
         <tbody>
             @foreach ($posts as $post)
-
-                <tr>
+              <tr>
                     <td>{{ $post['id'] }}</td>
                     <td>{{ $post['title'] }}</td>
                     <td>{{ $post['description'] }}</td>
@@ -75,6 +74,9 @@
             @endforeach
         </tbody>
     </table>
-
 </div>
+
+<div class="pagination">
+    {{ $posts->links()  }}
+ </div>
 @endsection
