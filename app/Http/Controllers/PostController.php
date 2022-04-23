@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends BaseController
 {
@@ -47,20 +48,21 @@ class PostController extends BaseController
     }
     public function edit($postId)
     {
-        $posts = $this->sendArray();
-        foreach ($posts as $post) {
-            if ($postId == $post['id']) {
-                $post = $post;
-            }
-        }
+        $users = User::all();
+        $post = Post::where('id', $postId)->first();
         return view(
             'posts.edit',
-            ['post' => $post]
+            ['post' => $post,'users'=>$users]
         );
     }
 
     public function update($postId)
     {
         return $this->index();
+    }
+    public function destroy($postId)
+    {
+        $deleted = DB::table('posts')->where('id', $postId)->delete();
+        return redirect()->route('posts.index');
     }
 }

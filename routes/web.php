@@ -3,7 +3,6 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +21,4 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::put('/posts/{post}/update', [PostController::class, 'update'])->name('posts.update');
+Route::delete('/posts/{post}/delete', [PostController::class, 'destroy'])->name('posts.destroy');

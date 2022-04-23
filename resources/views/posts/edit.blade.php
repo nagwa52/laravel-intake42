@@ -7,20 +7,21 @@
         @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Title</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="title">
+            <input type="text" class="form-control" id="exampleInputEmail1" name="title" value="{{ $post['title'] }}">
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">post creator</label>
-            <select class="form-select form-select-sm" name="post_creator">
+            <select name="post_creator" class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <!-- <option selected>post creator</option> -->
-                <option value="1">Ahmed</option>
-                <option value="2">Mohamed</option>
-                <option value="3">Nagwa</option>
+                @foreach ($users as $user )
+                      {{-- <option value={{ $user->id }}>{{ $user->name }}</option> --}}
+                      <option value="{{ $user->id }}" {{ ( $post['user_id'] == $user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">created at</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="created_at">
+            <input type="text" value="{{ \Carbon\carbon::parse($post['created_at'])->format('Y-m-d'); }}" class="form-control" id="exampleInputEmail1" name="created_at">
         </div>
         <button type="submit" class="btn btn-success">create</button>
     </form>

@@ -24,7 +24,7 @@
                 <p class="card-text"></p>
 
                 <h5 class="card-title">Created At</h5>
-                <p class="card-text">{{ $post->created_at }}</p>
+                <p class="card-text">{{ \Carbon\carbon::parse($post['created_at'])->format('Y-m-d'); }}</p>
 
             </div>
         </div>
