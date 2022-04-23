@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class PostController extends BaseController
 {
@@ -26,10 +27,13 @@ class PostController extends BaseController
         $users = User::all();
         return view('posts.create', ['users'=>$users]);
     }
-    public function store()
+    public function store(Request $request)
     {
+        $validated = $request->validate([
+            'title' => 'required|unique:posts|min:3',
+            'description' => 'required:posts|min:5',
+        ]);
         $data = request()->all();
-        // dd($data);
         Post::create([
             'title'=> $data['title'],
             'description'=>$data['description'],
