@@ -23,6 +23,7 @@
                 <td>
                     Created at
                 </td>
+                <td>Slug</td>
                 <td style="width:214px">
                     Actions
                 </td>
@@ -36,7 +37,7 @@
                     <td>{{ $post['description'] }}</td>
                     <td>{{ $post->user ? $post->user->name : 'Not found' }}</td>
                     <td>{{ \Carbon\carbon::parse($post['created_at'])->format('Y-m-d'); }}</td>
-                    {{-- <td>{{ $post['created_at'] }}</td> --}}
+                    <td>{{$post->slug }}</td>
                     <td>
                         <a href={{ route('posts.show', ['post' => $post['id']]) }} class="btn btn-primary">View</a>
 
