@@ -45,10 +45,10 @@ class PostController extends BaseController
 
     public function show($postId)
     {
+        $users = User::all();
         $post = Post::where('id', $postId)->first();
-        return view('posts.show', ['post' => $post]);
-        //  another way for select
-        // $post =Post::find($postId);
+        $comments = Post::find($postId)->comments;
+        return view('posts.show', ['post' => $post ,'users'=> $users,'comments'=>$comments]);
     }
     public function edit($postId)
     {

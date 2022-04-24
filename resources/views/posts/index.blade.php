@@ -23,7 +23,7 @@
                 <td>
                     Created at
                 </td>
-                <td style="width: 216px;">
+                <td style="width:314px">
                     Actions
                 </td>
             </tr>
@@ -41,6 +41,7 @@
                         <a href={{ route('posts.show', ['post' => $post['id']]) }} class="btn btn-primary">View</a>
 
                         <a href={{ route('posts.edit', ['post' => $post['id']]) }} class="btn btn-success">Edit</a>
+                        <a href='' class="btn btn-secondary">Comment</a>
 
                       <!-- Button trigger modal -->
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $post['id']}}">
