@@ -10,6 +10,10 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Validator;
 
 class PostController extends BaseController
 {
@@ -27,12 +31,8 @@ class PostController extends BaseController
         $users = User::all();
         return view('posts.create', ['users'=>$users]);
     }
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|unique:posts|min:3',
-            'description' => 'required:posts|min:5',
-        ]);
         $data = request()->all();
         Post::create([
             'title'=> $data['title'],
@@ -60,13 +60,26 @@ class PostController extends BaseController
         );
     }
 
-    public function update($postId)
+    public function update(UpdatePostRequest $request, $postId)
     {
+        $data = request()->all();
+        Post::where('id', $postId)
+          ->update(['title' => $data['title'],'description'=> $data['description'],'user_id'=>$data['post_creator']]);
+        // dd($data);
+        // $validated = $request->validated();
         return $this->index();
     }
     public function destroy($postId)
     {
         $deleted = DB::table('posts')->where('id', $postId)->delete();
         return redirect()->route('posts.index');
+    }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->somethingElseIsInvalid()) {
+                $validator->errors()->add('field', 'Something is wrong with this field!');
+            }
+        });
     }
 }

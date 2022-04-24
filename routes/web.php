@@ -28,3 +28,7 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 Route::get('/comments{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
 Route::put('/comments/{comments}/update', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('/comments/{comments}/delete', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
