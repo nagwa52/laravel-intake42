@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    create
+    Edit Post
 @endsection
 @section('header')
     <form method="PUT" action={{ route('posts.update', ['post' => $post['id']]) }}>
@@ -23,6 +23,6 @@
             <label for="exampleInputEmail1" class="form-label">created at</label>
             <input type="text" value="{{ \Carbon\carbon::parse($post['created_at'])->format('Y-m-d'); }}" class="form-control" id="exampleInputEmail1" name="created_at">
         </div>
-        <button type="submit" class="btn btn-success">create</button>
+        <button type="submit" class="btn btn-success">Edit</button>
     </form>
 @endsection

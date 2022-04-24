@@ -44,17 +44,61 @@
             @endforeach
         </select>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-        <button type="text" class="btn btn-primary">Edit</button>
-        <button type="text" class="btn btn-danger">Delete</button>
       </form>
+      <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>
+                        Comments
+                    </td>
+                    <td>
+                        comment creator
+                    </td>
+                    <td>
+                        Actions
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($comments as $comment)
+                  <tr>
+                        <td>{{$comment->body }}</td>
+                        <td>{{ $comment->user->name }}</td>
+                        <td>
+                            <a href={{ route('comments.edit', ['comment' => $comment['id']]) }} class="btn btn-success">Edit</a>
+                        <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $comment['id']}}">
+        Delete
+      </button>
 
-@foreach ($comments as $comment )
-<div class="mb-3 comments">
-    {{ $comment->body }} <span>{{ $comment->user->name }}</span>
-
-</div>
-@endforeach
-{{-- @dd($comments); --}}
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop-{{ $post['id']}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Do you want to delete?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <form action="{{ route('comments.destroy', ['comment' => $comment['id']]) }}" method="POST">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-primary">Yes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+     </td>
+    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
 @endsection
