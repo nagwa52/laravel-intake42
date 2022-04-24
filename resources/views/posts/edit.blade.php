@@ -8,11 +8,17 @@
         {{ method_field('PUT') }}
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Title</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="title" value="{{ $post['title'] }}">
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="exampleInputEmail1" name="title" value="{{ $post['title'] }}">
+            @error('title')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Description</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="description" value="{{ $post['description'] }}">
+            <input type="text" class="form-control @error('description') is-invalid @enderror" id="exampleInputEmail1" name="description" value="{{ $post['description'] }}">
+            @error('description')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">post creator</label>

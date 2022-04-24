@@ -67,7 +67,7 @@ class PostController extends BaseController
           ->update(['title' => $data['title'],'description'=> $data['description'],'user_id'=>$data['post_creator']]);
         // dd($data);
         // $validated = $request->validated();
-        return $this->index();
+        return redirect()->route('posts.index');
     }
     public function destroy($postId)
     {
