@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory;
     use Sluggable;
-    protected $fillable =['title','description','post_creator','slug'];
+    protected $fillable =['title','description','post_creator','slug','image'];
 
     public function user()
     {

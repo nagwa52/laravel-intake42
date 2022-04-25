@@ -3,7 +3,7 @@
     Edit Post
 @endsection
 @section('header')
-    <form method="post" action={{ route('posts.update', ['post' => $post['id']]) }}>
+    <form method="post" action={{ route('posts.update', ['post' => $post['id']]) }} enctype="multipart/form-data">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="mb-3">
@@ -19,6 +19,10 @@
             @error('description')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Upload image</label>
+            <input type="file" name="image" class="form-control" name="image" value="{{public_path('images/'.$post['image']) }}">
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">post creator</label>

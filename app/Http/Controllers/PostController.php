@@ -14,6 +14,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\File;
 
 class PostController extends BaseController
 {
@@ -34,10 +35,13 @@ class PostController extends BaseController
     public function store(StorePostRequest $request)
     {
         $data = request()->all();
+        $imageName = $request->image->getClientOriginalName();
+        $request->image->move(public_path('images'), $imageName);
         Post::create([
             'title'=> $data['title'],
             'description'=>$data['description'],
             'user_id'=>$data['post_creator'],
+            'image'=>$imageName,
 
         ]);
         return redirect()->route('posts.index');
@@ -63,14 +67,24 @@ class PostController extends BaseController
     public function update(UpdatePostRequest $request, $postId)
     {
         $data = request()->all();
+        $imageName = $request->image->getClientOriginalName();
+        $post = Post::where('id', $postId)->first();
+        if ($post->image !==$imageName) {
+            $request->image->move(public_path('images'), $imageName);
+            File::delete(public_path('images/'.$post->image));
+            Post::where('id', $postId)
+            ->update(['title' => $data['title'],'description'=> $data['description'],
+            'user_id'=>$data['post_creator'],'image'=>$imageName]);
+        }
         Post::where('id', $postId)
-          ->update(['title' => $data['title'],'description'=> $data['description'],'user_id'=>$data['post_creator']]);
-        // dd($data);
-        // $validated = $request->validated();
+            ->update(['title' => $data['title'],'description'=> $data['description'],
+            'user_id'=>$data['post_creator']]);
         return redirect()->route('posts.index');
     }
     public function destroy($postId)
     {
+        $post = Post::where('id', $postId)->first();
+        File::delete(public_path('images/'.$post->image));
         $deleted = DB::table('posts')->where('id', $postId)->delete();
         return redirect()->route('posts.index');
     }
