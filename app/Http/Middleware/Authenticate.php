@@ -22,11 +22,11 @@ class Authenticate extends Middleware
     // }
     public function handle($request, Closure $next, ...$guards)
     {
-        $this->authenticate($request, $guards);
+        // $this->authenticate($request, $guards);
 
-        if ($this->auth->user()) {
-            return $next($request);
-        }
-        redirect('login');
+        // if ($this->auth->user()) {
+        return $next($request);
+        // }
+        //redirect('login');
     }
 }
